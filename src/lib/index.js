@@ -1,8 +1,3 @@
-import Example from './components/Example';
-import SecondExample from './components/SecondExample';
+import Board from "./components/Board"
 
-export default Example;
-
-export {
-  SecondExample,
-};
+export { Board }
