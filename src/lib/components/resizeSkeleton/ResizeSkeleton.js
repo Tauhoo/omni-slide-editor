@@ -14,6 +14,7 @@ const Dot = styled.div`
     background-color: blue;
   }
   z-index: 1000;
+  user-select: none;
 `
 
 const Container = styled.div`

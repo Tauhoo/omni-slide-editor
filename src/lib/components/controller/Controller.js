@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { getOffset, getParentElement, getOffsetDot } from "./lib"
 import Board from "../Board"
 import Point from "../Point"
-import Square from "../Square"
+import Shape from "../Shape"
 
 const renderer = ({ elementList }, mouseMode) => {
   const result = []
@@ -14,13 +14,9 @@ const renderer = ({ elementList }, mouseMode) => {
           <Point {...element} order={element.key} mouseMode={mouseMode}></Point>
         )
         break
-      case "square":
+      case "shape":
         result.push(
-          <Square
-            {...element}
-            order={element.key}
-            mouseMode={mouseMode}
-          ></Square>
+          <Shape {...element} order={element.key} mouseMode={mouseMode}></Shape>
         )
       default:
         break
@@ -50,12 +46,13 @@ export default class extends Component {
         shapeRef: createRef(),
       },
       {
-        type: "square",
+        type: "shape",
         height: 200,
         width: 200,
         borderColor: "gray",
         borderWidth: 10,
         color: "black",
+        isCircle: true,
         top: 100,
         left: 100,
         isFocus: false,

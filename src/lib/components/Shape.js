@@ -9,6 +9,7 @@ const Container = styled.div`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
+  border-radius: ${({ isCircle }) => (isCircle ? "50%" : "0%")};
   border-width: ${({ borderWidth }) => borderWidth}px;
   border-color: ${({ borderColor }) => borderColor};
   border-style: solid;
@@ -33,6 +34,7 @@ export default class extends Component {
       order,
       mouseMode,
       shapeRef,
+      isCircle,
     } = this.props
 
     this.top = top
@@ -46,6 +48,7 @@ export default class extends Component {
       isFocus,
       order,
       ref: shapeRef,
+      isCircle,
     })
   }
 
@@ -58,6 +61,7 @@ export default class extends Component {
     order,
     mouseMode,
     shapeRef,
+    isCircle,
   }) {
     this.setState({
       borderColor,
@@ -66,6 +70,7 @@ export default class extends Component {
       isFocus,
       order,
       ref: shapeRef,
+      isCircle,
     })
   }
 
@@ -79,6 +84,7 @@ export default class extends Component {
         height={this.height}
         order={this.state.order}
         type='movable'
+        isCircle={this.state.isCircle}
       >
         <ResizeSkeleton
           dotsRef={this.props.dotsRef}
