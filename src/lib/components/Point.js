@@ -21,14 +21,22 @@ export default class extends Component {
   top = this.props.top
   left = this.props.left
   isMove = false
-  point = createRef()
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentWillMount() {
-    const { radius, editable, color, top, left, isFocus, order } = this.props
+    const {
+      radius,
+      editable,
+      color,
+      top,
+      left,
+      isFocus,
+      order,
+      ref,
+    } = this.props
 
     this.top = top
     this.left = left
-    this.setState({ radius, editable, color, isFocus, order })
+    this.setState({ radius, editable, color, isFocus, order, ref })
   }
 
   //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
@@ -40,10 +48,11 @@ export default class extends Component {
     left,
     isFocus,
     order,
+    ref,
   }) {
     this.top = top
     this.left = left
-    this.setState({ radius, editable, color, isFocus, order })
+    this.setState({ radius, editable, color, isFocus, order, ref })
   }
 
   render() {
@@ -53,6 +62,7 @@ export default class extends Component {
         top={this.top}
         left={this.left}
         order={this.state.order}
+        type='movable'
       />
     )
   }
