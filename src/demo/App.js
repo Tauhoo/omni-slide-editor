@@ -1,12 +1,16 @@
-import React from "react"
-import { Board } from "../lib"
+import React, { Component, createRef } from "react"
+import { Controller } from "../lib"
 
-const App = () => (
-  <div>
-    cdkcndk
-    <Board height='100px' width='1000px'></Board>
-    bcdcd
-  </div>
-)
+class App extends Component {
+  render() {
+    return (
+      <div>
+        cdkcndk
+        <Controller></Controller>
+        bcdcd
+      </div>
+    )
+  }
+}
 
 export default App

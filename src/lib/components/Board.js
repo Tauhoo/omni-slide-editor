@@ -10,6 +10,7 @@ const Container = styled.div`
 const Board = styled.div`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
+  overflow: hidden;
   position: absolute;
   background-color: black;
   transform: translate(-50%, -50%);
@@ -19,7 +20,7 @@ const Board = styled.div`
 
 export default class extends Component {
   containerRef = createRef()
-  boardRef = createRef()
+  boardRef = this.props.boardRef
 
   onResize = () => {
     const container = this.containerRef.current
@@ -57,7 +58,11 @@ export default class extends Component {
           ref={this.boardRef}
           width={this.props.width}
           height={this.props.height}
-        ></Board>
+          onMouseDown={this.props.onMouseDown}
+          onMouseUp={this.props.onMouseUp}
+        >
+          {this.props.children}
+        </Board>
       </Container>
     )
   }
