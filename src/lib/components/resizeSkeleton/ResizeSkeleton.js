@@ -2,17 +2,14 @@ import React, { Component, createRef } from "react"
 import styled from "styled-components"
 
 const Dot = styled.div`
-  width: ${({ borderWidth }) => borderWidth * 2}px;
-  height: ${({ borderWidth }) => borderWidth * 2}px;
+  width: ${({ borderWidth }) => borderWidth}px;
+  height: ${({ borderWidth }) => borderWidth}px;
   position: absolute;
   border-radius: 50%;
-  background-color: transparent;
   left: ${({ alt }) => ((alt === 0) | (alt === 3) ? "0px" : "100%")};
   top: ${({ alt }) => ((alt === 0) | (alt === 1) ? "0px" : "100%")};
   transform: translate(-50%, -50%);
-  &:hover {
-    background-color: blue;
-  }
+  background-color: blue;
   z-index: 1000;
   user-select: none;
 `
@@ -31,15 +28,16 @@ export default class extends Component {
 
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentWillMount() {
-    this.setState({ order: this.props.order })
+    this.setState({ order: this.props.order, mouseMode: this.props.mouseMode })
   }
 
   //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-  componentWillReceiveProps({ order }) {
-    this.setState({ order })
+  componentWillReceiveProps({ order, mouseMode }) {
+    this.setState({ order, mouseMode })
   }
 
   render() {
+    if (this.state.mouseMode !== "resize") return <></>
     return (
       <Container>
         <Dot

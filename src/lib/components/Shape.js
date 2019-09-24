@@ -49,6 +49,7 @@ export default class extends Component {
       order,
       ref: shapeRef,
       isCircle,
+      mouseMode,
     })
   }
 
@@ -71,6 +72,7 @@ export default class extends Component {
       order,
       ref: shapeRef,
       isCircle,
+      mouseMode,
     })
   }
 
@@ -90,6 +92,7 @@ export default class extends Component {
           dotsRef={this.props.dotsRef}
           borderWidth={this.state.borderWidth}
           order={this.state.order}
+          mouseMode={this.state.mouseMode}
         ></ResizeSkeleton>
       </Container>
     )

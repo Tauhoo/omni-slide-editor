@@ -1,6 +1,6 @@
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
-import { getOffset, getParentElement, getOffsetDot } from "./lib"
+import { getOffset, getParentElement, getOffsetDot, resize, move } from "./lib"
 import Board from "../Board"
 import Point from "../Point"
 import Shape from "../Shape"
@@ -31,6 +31,8 @@ export default class extends Component {
     this.getOffset = getOffset.bind(this)
     this.getParentElement = getParentElement.bind(this)
     this.getOffsetDot = getOffsetDot.bind(this)
+    this.resize = resize.bind(this)
+    this.move = move.bind(this)
   }
   data = {
     elementList: [
@@ -60,11 +62,26 @@ export default class extends Component {
         shapeRef: createRef(),
         dotsRef: [createRef(), createRef(), createRef(), createRef()],
       },
+      {
+        type: "shape",
+        height: 100,
+        width: 100,
+        borderColor: "gray",
+        borderWidth: 10,
+        color: "pink",
+        isCircle: false,
+        top: 200,
+        left: 200,
+        isFocus: false,
+        key: 2,
+        shapeRef: createRef(),
+        dotsRef: [createRef(), createRef(), createRef(), createRef()],
+      },
     ],
   }
   counter = this.data.elementList.length
   boardRef = createRef()
-  state = { mouseMode: "resize" }
+  state = { mouseMode: "move", displayDot: false }
 
   isIn = false
   isPress = false
@@ -86,14 +103,21 @@ export default class extends Component {
       this.elementSelectedOffsetX = 0
       this.elementSelectedOffsetY = 0
       this.elementOrder = null
-    } else if (e.target.getAttribute("type") === "dot") {
+    } else if (
+      e.target.getAttribute("type") === "dot" &&
+      this.state.mouseMode === "resize"
+    ) {
       this.element = e.target
       this.elementSelectedOffsetX = e.offsetX
       this.elementSelectedOffsetY = e.offsetY
       this.elementOrder = this.element.getAttribute("order")
-    } else {
-      this.element = this.getParentElement(e.path)
-      if (this.element.getAttribute("type") !== "movable") return
+    } else if (
+      this.state.mouseMode === "move" &&
+      e.target.getAttribute("type") !== "dot"
+    ) {
+      const target = this.getParentElement(e.path)
+      if (target.getAttribute("type") !== "movable") return
+      this.element = target
       this.elementSelectedOffsetX = e.offsetX
       this.elementSelectedOffsetY = e.offsetY
       this.elementOrder = this.element.getAttribute("order")
@@ -119,14 +143,7 @@ export default class extends Component {
       this.isPress &&
       this.element !== null
     ) {
-      const targetElement = this.data.elementList[this.elementOrder]
-      const [x, y] = this.getOffset(e)
-
-      targetElement.top = y
-      targetElement.left = x
-
-      this.element.style.top = y + "px"
-      this.element.style.left = x + "px"
+      this.move(e)
       return
     }
 
@@ -134,55 +151,14 @@ export default class extends Component {
     if (
       this.state.mouseMode === "resize" &&
       this.isPress &&
-      this.element !== null &&
-      this.element.getAttribute("type") === "dot"
+      this.element !== null
     ) {
-      const alt = this.element.getAttribute("alt")
-      const targetElement = this.data.elementList[this.elementOrder]
-      const [x, y] = this.getOffsetDot(e, targetElement.shapeRef.current)
-      const dots = targetElement.dotsRef
-      const parent = targetElement.shapeRef.current
-      let height = 0
-      let width = 0
-      if (alt === "0") {
-        // dots[1].current.style.top = y + "px"
-        //dots[3].current.style.left = x + "px"
-        parent.style.top = parent.offsetTop + y + "px"
-        parent.style.left = parent.offsetLeft + x + "px"
-        height = Math.abs(y - dots[3].current.offsetTop)
-        width = Math.abs(x - dots[1].current.offsetLeft)
-      } else if (alt === "1") {
-        //dots[0].current.style.top = y + "px"
-        //dots[2].current.style.left = x + "px"
-        parent.style.top = parent.offsetTop + y + "px"
-        height = Math.abs(y - dots[2].current.offsetTop)
-        width = Math.abs(x - dots[0].current.offsetLeft)
-      } else if (alt === "2") {
-        //dots[3].current.style.top = y + "px"
-        //dots[1].current.style.left = x + "px"
-        height = Math.abs(y - dots[1].current.offsetTop)
-        width = Math.abs(x - dots[3].current.offsetLeft)
-      } else {
-        //dots[2].current.style.top = y + "px"
-        //dots[0].current.style.left = x + "px"
-        parent.style.left = parent.offsetLeft + x + "px"
-        height = Math.abs(y - dots[0].current.offsetTop)
-        width = Math.abs(x - dots[2].current.offsetLeft)
-      }
-
-      targetElement.height = height
-      targetElement.width = width
-
-      parent.style.width = width + "px"
-      parent.style.height = height + "px"
-
-      //this.element.style.top = y + "px"
-      //this.element.style.left = x + "px"
+      this.resize(e)
       return
     }
   }
 
-  onMouseOut = () => {
+  onMouseLeave = () => {
     this.isIn = false
     this.isPress = false
     this.element = null
@@ -198,7 +174,7 @@ export default class extends Component {
     board.addEventListener("mousedown", this.onMouseDown)
     board.addEventListener("mouseup", this.onMouseUp)
     board.addEventListener("mousemove", this.onMouseMove)
-    board.addEventListener("mouseout", this.onMouseOut)
+    board.addEventListener("mouseleave", this.onMouseLeave)
     board.addEventListener("mouseover", this.onMouseOver)
   }
 
@@ -207,15 +183,23 @@ export default class extends Component {
     board.removeEventListener("mousedown", this.onMouseDown)
     board.removeEventListener("mouseup", this.onMouseUp)
     board.removeEventListener("mousemove", this.onMouseMove)
-    board.removeEventListener("mouseout", this.onMouseOut)
+    board.removeEventListener("mouseleave", this.onMouseLeave)
     board.removeEventListener("mouseover", this.onMouseOver)
   }
 
   render() {
     return (
-      <Board width='1000px' height='500px' boardRef={this.boardRef}>
-        {renderer(this.data, this.state.mouseMode)}
-      </Board>
+      <>
+        <Board width='1000px' height='500px' boardRef={this.boardRef}>
+          {renderer(this.data, this.state.mouseMode)}
+        </Board>
+        <button onClick={() => this.setState({ mouseMode: "move" })}>
+          Move
+        </button>
+        <button onClick={() => this.setState({ mouseMode: "resize" })}>
+          dot
+        </button>
+      </>
     )
   }
 }
