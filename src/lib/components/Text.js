@@ -7,7 +7,6 @@ const Container = styled.div`
   top: ${({ height }) => height}px;
   left: ${({ width }) => width}px;
   color: ${({ color }) => color};
-  font-size: ${({ fontSize }) => fontSize}px;
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
 `
@@ -15,6 +14,9 @@ const Text = styled.input`
   height: 100%;
   width: 100%;
   position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: ${({ fontSize }) => fontSize}px;
   border: none;
   background-color: transparent;
   text-align: center;

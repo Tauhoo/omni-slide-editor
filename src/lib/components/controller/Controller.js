@@ -1,10 +1,31 @@
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
 import { getOffset, getParentElement, getOffsetDot, resize, move } from "./lib"
+import Menu from "../menu/Menu"
 import Board from "../Board"
 import Point from "../Point"
 import Shape from "../Shape"
 import Text from "../Text"
+
+const Container = styled.div`
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d8d8d8;
+  border-radius: 15px 15px 0px 0px;
+  overflow: hidden;
+`
+
+const Line = styled.div`
+  background-color: #d8d8d8;
+  width: 100%;
+  height: 1px;
+`
+
+const LineContainer = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px 10px;
+`
 
 const renderer = function() {
   const result = []
@@ -215,20 +236,19 @@ export default class extends Component {
 
   render() {
     return (
-      <>
+      <Container>
+        <Menu
+          move={() => this.setState({ mouseMode: "move" })}
+          resize={() => this.setState({ mouseMode: "resize" })}
+          edit={() => this.setState({ mouseMode: "edit" })}
+        ></Menu>
+        <LineContainer>
+          <Line></Line>
+        </LineContainer>
         <Board width='1000px' height='500px' boardRef={this.boardRef}>
           {this.renderer()}
         </Board>
-        <button onClick={() => this.setState({ mouseMode: "move" })}>
-          Move
-        </button>
-        <button onClick={() => this.setState({ mouseMode: "resize" })}>
-          dot
-        </button>
-        <button onClick={() => this.setState({ mouseMode: "edit" })}>
-          edit
-        </button>
-      </>
+      </Container>
     )
   }
 }

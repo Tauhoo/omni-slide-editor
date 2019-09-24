@@ -11,9 +11,6 @@ const Board = styled.div`
   width: ${({ width }) => width};
   overflow: hidden;
   position: absolute;
-  border-color: black;
-  border-style: solid;
-  border-width: 3px;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;

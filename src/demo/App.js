@@ -5,9 +5,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        cdkcndk
         <Controller></Controller>
-        bcdcd
       </div>
     )
   }

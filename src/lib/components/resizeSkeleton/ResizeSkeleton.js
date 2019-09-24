@@ -8,7 +8,7 @@ const Dot = styled.div`
   border-radius: 50%;
   left: ${({ alt }) => ((alt === 0) | (alt === 3) ? "0px" : "100%")};
   top: ${({ alt }) => ((alt === 0) | (alt === 1) ? "0px" : "100%")};
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%) translateY(-50%);
   background-color: #34495e;
   z-index: 1000;
   user-select: none;
@@ -19,6 +19,7 @@ const Container = styled.div`
   border-color: #34495e;
   border-style: dashed;
   border-width: 3px;
+  box-sizing: border-box;
   height: 100%;
   width: 100%;
 `
