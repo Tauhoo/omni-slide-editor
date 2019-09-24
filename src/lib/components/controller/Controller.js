@@ -4,10 +4,12 @@ import { getOffset, getParentElement, getOffsetDot, resize, move } from "./lib"
 import Board from "../Board"
 import Point from "../Point"
 import Shape from "../Shape"
+import Text from "../Text"
 
-const renderer = ({ elementList }, mouseMode) => {
+const renderer = function() {
   const result = []
-  for (let element of elementList) {
+  const { mouseMode } = this.state
+  for (let element of this.data.elementList) {
     switch (element.type) {
       case "point":
         result.push(
@@ -18,6 +20,12 @@ const renderer = ({ elementList }, mouseMode) => {
         result.push(
           <Shape {...element} order={element.key} mouseMode={mouseMode}></Shape>
         )
+        break
+      case "text":
+        result.push(
+          <Text {...element} order={element.key} mouseMode={mouseMode}></Text>
+        )
+        break
       default:
         break
     }
@@ -33,6 +41,7 @@ export default class extends Component {
     this.getOffsetDot = getOffsetDot.bind(this)
     this.resize = resize.bind(this)
     this.move = move.bind(this)
+    this.renderer = renderer.bind(this)
   }
   data = {
     elementList: [
@@ -70,12 +79,29 @@ export default class extends Component {
         borderWidth: 10,
         color: "pink",
         isCircle: false,
+        text: "iceice",
         top: 200,
         left: 200,
         isFocus: false,
         key: 2,
         shapeRef: createRef(),
         dotsRef: [createRef(), createRef(), createRef(), createRef()],
+      },
+      {
+        type: "text",
+        fontSize: 16,
+        color: "black",
+        top: 60,
+        left: 20,
+        isFocus: false,
+        text: "Text",
+        height: 10,
+        width: 100,
+        key: 3,
+        shapeRef: createRef(),
+        inputRef: createRef(),
+        dotsRef: [createRef(), createRef(), createRef(), createRef()],
+        borderWidth: 5,
       },
     ],
   }
@@ -191,13 +217,16 @@ export default class extends Component {
     return (
       <>
         <Board width='1000px' height='500px' boardRef={this.boardRef}>
-          {renderer(this.data, this.state.mouseMode)}
+          {this.renderer()}
         </Board>
         <button onClick={() => this.setState({ mouseMode: "move" })}>
           Move
         </button>
         <button onClick={() => this.setState({ mouseMode: "resize" })}>
           dot
+        </button>
+        <button onClick={() => this.setState({ mouseMode: "edit" })}>
+          edit
         </button>
       </>
     )
