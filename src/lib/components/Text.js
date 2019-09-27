@@ -114,7 +114,6 @@ export default class extends Component {
       dotsRef,
       borderWidth,
     } = this.state
-    console.log(fontSize)
 
     return (
       <Container

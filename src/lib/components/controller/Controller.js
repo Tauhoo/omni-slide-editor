@@ -142,6 +142,10 @@ export default class extends Component {
     this.setState({ mouseMode })
   }
 
+  onAdd = e => {
+    console.log(e)
+  }
+
   onMouseDown = e => {
     this.isPress = true
 
@@ -241,6 +245,8 @@ export default class extends Component {
           move={() => this.setState({ mouseMode: "move" })}
           resize={() => this.setState({ mouseMode: "resize" })}
           edit={() => this.setState({ mouseMode: "edit" })}
+          mouseMode={this.state.mouseMode}
+          onAdd={this.onAdd}
         ></Menu>
         <LineContainer>
           <Line></Line>

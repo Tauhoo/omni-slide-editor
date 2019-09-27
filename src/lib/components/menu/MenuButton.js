@@ -1,22 +1,40 @@
 import React from "react"
 import styled from "styled-components"
 
-const Button = styled.div`
-  background-color: white;
+const Button = styled.button`
   font-size: 16px;
-  padding: 5px 30px;
-  margin: 0px;
-  display: inline-block;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
   transition: 0.3s;
-  &:hover {
-    transform: scale(1.5);
+  height: 50px;
+  min-width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 5px;
+  border-color: transparent;
+  outline: none;
+
+  color: ${({ active }) => (active ? "#25CCF7" : "#2C3A47")};
+  > * {
+    fill: ${({ active }) => (active ? "#25CCF7" : "#2C3A47")};
   }
-  $:active {
-    background-color: black;
-    color: white;
+  &:hover {
+    background-color: #ecf0f1;
   }
 `
 
-export default ({ onClick, children }) => (
-  <Button onClick={onClick}>{children}</Button>
+export default ({ onClick, children, active, onBlur, onMouseDown }) => (
+  <Button
+    onClick={onClick}
+    active={active === "true"}
+    onBlur={onBlur}
+    onMouseDown={onMouseDown}
+  >
+    {children}
+  </Button>
 )
