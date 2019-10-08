@@ -19,7 +19,7 @@ const Board = styled.div`
 
 export default class extends Component {
   containerRef = createRef()
-  boardRef = this.props.boardRef
+  boardRef = this.props.data.boardRef
 
   onResize = () => {
     const container = this.containerRef.current
@@ -39,6 +39,9 @@ export default class extends Component {
     )
   }
 
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+  componentWillMount() {}
+
   componentDidMount() {
     if (typeof window === "undefined") return
     window.addEventListener("resize", this.onResize)
@@ -55,10 +58,8 @@ export default class extends Component {
       <Container ref={this.containerRef}>
         <Board
           ref={this.boardRef}
-          width={this.props.width}
-          height={this.props.height}
-          onMouseDown={this.props.onMouseDown}
-          onMouseUp={this.props.onMouseUp}
+          width={this.props.data.width}
+          height={this.props.data.height}
         >
           {this.props.children}
         </Board>

@@ -1,11 +1,11 @@
-import React, { Component, createRef } from "react"
+import React, { Component } from "react"
 import { Controller } from "../lib"
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Controller></Controller>
+        <Controller> </Controller>
       </div>
     )
   }
