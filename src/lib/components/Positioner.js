@@ -16,10 +16,10 @@ export default class extends Component {
   onMouseMove = e => {
     if (!this.isHold) return
     const element = this.ref.current
-    console.log(element.offsetLeft + e.offsetX - this.mouseX + "px")
-
-    element.style.left = element.offsetLeft + e.offsetX - this.mouseX + "px"
-    element.style.top = element.offsetTop + e.offsetY - this.mouseX + "px"
+    this.data.left = element.offsetLeft + e.offsetX - this.mouseX
+    this.data.top = element.offsetTop + e.offsetY - this.mouseY
+    element.style.left = this.data.left + "px"
+    element.style.top = this.data.top + "px"
   }
 
   componentDidMount() {

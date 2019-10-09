@@ -5,18 +5,20 @@ import renderer from "./lib/renderer"
 export default class extends Component {
   data = {
     boardRef: createRef(),
-    height: "100px",
-    width: "200px",
+    height: "1000px",
+    width: "1000px",
     elementList: [
       {
         type: "shape",
         height: 100,
         width: 100,
-        borderRadius: "none",
+        borderRadius: 0,
+        borderColor: "pink",
         backgroundColor: "blue",
         borderWidth: 5,
         left: 0,
         top: 0,
+        ref: createRef(),
       },
     ],
   }
