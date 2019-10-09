@@ -20,6 +20,18 @@ export default class extends Component {
         top: 0,
         ref: createRef(),
       },
+      {
+        type: "text",
+        color: "black",
+        fontFamily: "Arial, Helvetica, sans-serif",
+        fontSize: 16,
+        fontWeight: 100,
+        textDecoration: "overline",
+        left: 100,
+        top: 100,
+        text: "text",
+        ref: createRef(),
+      },
     ],
   }
   render() {
