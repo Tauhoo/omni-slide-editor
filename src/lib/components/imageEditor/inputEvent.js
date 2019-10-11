@@ -1,11 +1,12 @@
 import { styleChecker } from "../lib/checker"
 
-const onChangeBackgroundColor = function(e) {
-  let value = e.target.value
-  value = value === "" ? "white" : value
-  if (!styleChecker("backgroundColor", value)) return
-  this.data.ref.current.style.backgroundColor = value
-  this.data.backgroundColor = value
+const onChangeBackgroundImage = function(e) {
+  let value = e
+  value = value === "" ? "" : value
+  this.data.ref.current.style.backgroundImage = `url(${
+    value === "" ? "none" : value
+  })`
+  this.data.backgroundImage = value === "" ? "none" : value
 }
 
 const onChangeBorderWidth = function(e) {
@@ -31,7 +32,7 @@ const onChangeBorderRadius = function(e) {
 }
 
 export const eventRegister = component => {
-  component.onChangeBackgroundColor = onChangeBackgroundColor.bind(component)
+  component.onChangeBackgroundImage = onChangeBackgroundImage.bind(component)
   component.onChangeBorderWidth = onChangeBorderWidth.bind(component)
   component.onChangeBorderColor = onChangeBorderColor.bind(component)
   component.onChangeBorderRadius = onChangeBorderRadius.bind(component)

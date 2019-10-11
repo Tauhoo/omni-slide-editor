@@ -32,6 +32,19 @@ export default class extends Component {
         text: "text",
         ref: createRef(),
       },
+      {
+        type: "image",
+        height: 100,
+        width: 100,
+        borderRadius: 0,
+        borderColor: "pink",
+        backgroundImage:
+          "https://previews.123rf.com/images/objowl/objowl1103/objowl110300009/9040493-computer-generated-iimage-with-an-abstract-circular-geometric-design-in-red-and-green-.jpg",
+        borderWidth: 5,
+        left: 100,
+        top: 0,
+        ref: createRef(),
+      },
     ],
   }
   render() {

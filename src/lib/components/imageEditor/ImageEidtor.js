@@ -1,12 +1,13 @@
 import React, { Component, createRef } from "react"
 import Title from "../interface/Title"
 import Input from "../interface/Input"
+import InputImage from "../interface/InputImage"
 import CloseButton from "../interface/CloseButton"
-import { eventRegister } from "./inputEvent"
 import styled from "styled-components"
+import { eventRegister } from "./inputEvent"
 
 const Container = styled.div`
-  width: 300px;
+  width: 350px;
   padding: 20px;
   box-sizing: border-box;
   background-color: white;
@@ -52,42 +53,31 @@ export default class extends Component {
         {this.state.active ? (
           <Container left={this.state.left} top={this.state.top}>
             <Title>Setting</Title>
+            <InputImage
+              placeholder='background image url'
+              name='image'
+              defaultValue={this.data.backgroundImage}
+              onChange={this.onChangeBackgroundImage}
+            ></InputImage>
             <Input
-              placeholder='color'
-              name='color'
-              defaultValue={this.data.color}
-              onChange={this.onChangeColor}
-            ></Input>
-            <Input
-              placeholder='font family'
-              name='font family'
-              defaultValue={this.data.fontFamily}
-            ></Input>
-            <Input
-              placeholder='text decoration'
-              name='text-decoration'
-              defaultValue={this.data.textDecoration}
+              placeholder='border color'
+              name='border-color'
+              defaultValue={this.data.borderColor}
+              onChange={this.onChangeBorderColor}
             ></Input>
             <Input
               type='number'
-              placeholder='font size'
-              name='font-size'
-              defaultValue={this.data.fontSize}
-              onChange={this.onChangeFontSize}
+              placeholder='border width'
+              name='border-width'
+              defaultValue={this.data.borderWidth}
+              onChange={this.onChangeBorderWidth}
             ></Input>
             <Input
               type='number'
-              placeholder='font weight'
-              name='font-weight'
-              defaultValue={this.data.fontWeight}
-              onChange={this.onChangeFontWeight}
-            ></Input>
-            <Input
-              type='text'
-              placeholder='text'
-              name='text'
-              defaultValue={this.data.text}
-              onChange={this.onChangeText}
+              placeholder='border radius'
+              name='border-radius'
+              defaultValue={this.data.borderRadius}
+              onChange={this.onChangeBorderRadius}
             ></Input>
             <CloseButton
               onClick={() => this.setState({ active: false })}

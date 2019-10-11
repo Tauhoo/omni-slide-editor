@@ -8,6 +8,7 @@ const Container = styled.div`
   font-size: ${({ fontSize }) => fontSize}px;
   font-weight: ${({ fontWeight }) => fontWeight};
   text-decoration: ${({ textDecoration }) => textDecoration};
+  cursor: default;
 `
 
 export default class extends Component {
