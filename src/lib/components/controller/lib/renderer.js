@@ -1,11 +1,13 @@
 import React from "react"
 import Shape from "../../Shape"
 import Image from "../../Image"
-import Positioner from "../../Positioner"
+import Text from "../../Text"
+import Video from "../../Video"
 import ImageEditor from "../../imageEditor/ImageEidtor"
 import ShapeEditor from "../../shapeEditor/ShapeEditor"
-import Text from "../../Text"
 import TextEditor from "../../textEditor/TextEditor"
+import VideoEditor from "../../videoEditor/VideoEditor"
+import Positioner from "../../Positioner"
 
 const render = element => {
   if (element.type === "shape")
@@ -32,6 +34,14 @@ const render = element => {
         <ImageEditor data={element}>
           <Image data={element}></Image>
         </ImageEditor>
+      </Positioner>
+    )
+  if (element.type === "video")
+    return (
+      <Positioner data={element}>
+        <VideoEditor data={element}>
+          <Video data={element}></Video>
+        </VideoEditor>
       </Positioner>
     )
   return null

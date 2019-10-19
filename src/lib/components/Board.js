@@ -4,12 +4,12 @@ import styled from "styled-components"
 const Container = styled.div`
   width: 100%;
   position: relative;
+  overflow: hidden;
 `
 
 const Board = styled.div`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  overflow: hidden;
   position: absolute;
   transform: translate(-50%, -50%);
   left: 50%;

@@ -1,6 +1,29 @@
 import React, { Component, createRef } from "react"
+import styled from "styled-components"
 import Board from "../Board"
 import renderer from "./lib/renderer"
+import ToolBar from "../../ToolBar"
+
+const Container = styled.div`
+  width: 100%;
+  border-width: 1px;
+  border-color: #b2bec3;
+  border-style: solid;
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+`
+const Line = styled.div`
+  width: 100%;
+  padding: 0px 15px;
+  box-sizing: border-box;
+  height: 5px;
+  hr {
+    border-top: 1px solid #dfe6e9;
+    margin: 0px;
+  }
+`
 
 export default class extends Component {
   data = {
@@ -45,13 +68,32 @@ export default class extends Component {
         top: 0,
         ref: createRef(),
       },
+      {
+        type: "video",
+        height: 200,
+        width: 200,
+        borderRadius: 0,
+        borderColor: "pink",
+        src:
+          "https://drive.google.com/file/d/1PH10PRuCtr4d91uhQ4BuDZ4rgC15uWyx/preview",
+        borderWidth: 5,
+        left: 0,
+        top: 0,
+        ref: createRef(),
+      },
     ],
   }
   render() {
     return (
-      <Board data={this.data}>
-        {renderer(this.data.elementList, this.data.boardRef)}
-      </Board>
+      <Container>
+        <ToolBar></ToolBar>
+        <Line>
+          <hr />
+        </Line>
+        <Board data={this.data}>
+          {renderer(this.data.elementList, this.data.boardRef)}
+        </Board>
+      </Container>
     )
   }
 }

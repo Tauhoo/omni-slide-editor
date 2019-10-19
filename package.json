@@ -20,6 +20,8 @@
   "homepage": "https://github.com/DimiMikadze/create-react-library#readme",
   "license": "MIT",
   "dependencies": {
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
