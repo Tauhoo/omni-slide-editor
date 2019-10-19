@@ -4,6 +4,8 @@ import Input from "../interface/Input"
 import CloseButton from "../interface/CloseButton"
 import styled from "styled-components"
 import { eventRegister } from "./inputEvent"
+import { connect } from "react-redux"
+import store from "../../redux/store"
 
 const Container = styled.div`
   width: 300px;
@@ -18,11 +20,12 @@ const Container = styled.div`
   border: 1px solid #cccccc;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
+  z-index: 10000;
 `
 
 const Wrapper = styled.div``
 
-export default class extends Component {
+class ShapeEditor extends Component {
   data = this.props.data
   ref = createRef()
   state = { active: false, left: 0, top: 0 }
@@ -34,6 +37,7 @@ export default class extends Component {
 
   onRightClick = e => {
     e.preventDefault()
+    if (this.props.mode !== "Setting") return
     this.setState({ active: true, left: e.offsetX, top: e.offsetY })
   }
 
@@ -49,7 +53,7 @@ export default class extends Component {
     return (
       <Wrapper ref={this.ref}>
         {this.props.children}
-        {this.state.active ? (
+        {this.state.active && this.props.mode === "Setting" ? (
           <Container left={this.state.left} top={this.state.top}>
             <Title>Setting</Title>
             <Input
@@ -87,3 +91,20 @@ export default class extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ controller }) => {
+  return {
+    mode: controller.mode,
+  }
+}
+
+const mapDispatchToProps = () => {
+  return {}
+}
+
+export default store(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ShapeEditor)
+)

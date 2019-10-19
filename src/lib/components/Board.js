@@ -39,9 +39,6 @@ export default class extends Component {
     )
   }
 
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {}
-
   componentDidMount() {
     if (typeof window === "undefined") return
     window.addEventListener("resize", this.onResize)

@@ -1,5 +1,7 @@
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
+import { connect } from "react-redux"
+import store from "../redux/store"
 
 const Container = styled.div`
   position: absolute;
@@ -7,14 +9,14 @@ const Container = styled.div`
   top: ${({ top }) => top}px;
 `
 
-export default class extends Component {
+class Positioner extends Component {
   ref = createRef()
   data = this.props.data
   isHold = false
   mouseX = 0
   mouseY = 0
   onMouseMove = e => {
-    if (!this.isHold) return
+    if (!this.isHold || this.props.mode !== "Move") return
     const element = this.ref.current
     this.data.left = element.offsetLeft + e.offsetX - this.mouseX
     this.data.top = element.offsetTop + e.offsetY - this.mouseY
@@ -34,6 +36,7 @@ export default class extends Component {
     this.ref.current.removeEventListener("mousedown", this.onMouseDown)
   }
   onMouseDown = e => {
+    if (this.props.mode !== "Move") return
     this.isHold = true
     this.mouseX = e.offsetX
     this.mouseY = e.offsetY
@@ -54,3 +57,20 @@ export default class extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ controller }) => {
+  return {
+    mode: controller.mode,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+
+export default store(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Positioner)
+)
