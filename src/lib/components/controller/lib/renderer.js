@@ -8,13 +8,16 @@ import ShapeEditor from "../../shapeEditor/ShapeEditor"
 import TextEditor from "../../textEditor/TextEditor"
 import VideoEditor from "../../videoEditor/VideoEditor"
 import Positioner from "../../Positioner"
+import Resizer from "../../Resizer"
 
-const render = element => {
+const render = (element, boardRef) => {
   if (element.type === "shape")
     return (
       <Positioner data={element}>
         <ShapeEditor data={element}>
-          <Shape data={element}></Shape>
+          <Resizer data={element} boardRef={boardRef}>
+            <Shape data={element}></Shape>
+          </Resizer>
         </ShapeEditor>
       </Positioner>
     )
@@ -32,7 +35,9 @@ const render = element => {
     return (
       <Positioner data={element}>
         <ImageEditor data={element}>
-          <Image data={element}></Image>
+          <Resizer data={element} boardRef={boardRef}>
+            <Image data={element}></Image>
+          </Resizer>
         </ImageEditor>
       </Positioner>
     )
@@ -40,11 +45,15 @@ const render = element => {
     return (
       <Positioner data={element}>
         <VideoEditor data={element}>
-          <Video data={element}></Video>
+          <Resizer data={element} boardRef={boardRef}>
+            <Video data={element}></Video>
+          </Resizer>
         </VideoEditor>
       </Positioner>
     )
   return null
 }
 
-export default elementList => <>{elementList.map(element => render(element))}</>
+export default (elementList, boardRef) => (
+  <>{elementList.map(element => render(element, boardRef))}</>
+)

@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import { ReactComponent as Video } from "../assets/icon/video.svg"
+import { connect } from "react-redux"
+import store from "../redux/store"
 
 const Container = styled.div`
   height: ${({ height }) => height}px;
@@ -22,7 +24,8 @@ const Iframe = styled.iframe`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: none;
+  display: ${({ mode }) => (mode === "Preview" ? "block" : "none")};
+  transition-duration: 0.3s;
 `
 
 const VideoSized = styled(Video)`
@@ -32,9 +35,11 @@ const VideoSized = styled(Video)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: ${({ mode }) => (mode === "Preview" ? "none" : "block")};
+  transition-duration: 0.3s;
 `
 
-export default class extends Component {
+class VideoComponent extends Component {
   constructor(props) {
     super(props)
     this.data = this.props.data
@@ -42,9 +47,26 @@ export default class extends Component {
   render() {
     return (
       <Container {...this.data} ref={this.data.ref}>
-        <Iframe src={this.data.src}></Iframe>
-        <VideoSized></VideoSized>
+        <Iframe src={this.data.src} mode={this.props.mode}></Iframe>
+        <VideoSized mode={this.props.mode}></VideoSized>
       </Container>
     )
   }
 }
+
+const mapStateToProps = ({ controller }) => {
+  return {
+    mode: controller.mode,
+  }
+}
+
+const mapDispatchToProps = () => {
+  return {}
+}
+
+export default store(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(VideoComponent)
+)

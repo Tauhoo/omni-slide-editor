@@ -10,8 +10,8 @@ const Container = styled.div`
 `
 
 class Positioner extends Component {
-  ref = createRef()
   data = this.props.data
+  ref = this.props.data.refPositioner
   isHold = false
   mouseX = 0
   mouseY = 0

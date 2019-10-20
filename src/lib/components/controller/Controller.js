@@ -3,6 +3,9 @@ import styled from "styled-components"
 import Board from "../Board"
 import renderer from "./lib/renderer"
 import ToolBar from "../../ToolBar"
+import dataGenerater from "./lib/dataGenerater"
+import { connect } from "react-redux"
+import store from "../../redux/store"
 
 const Container = styled.div`
   width: 100%;
@@ -25,64 +28,33 @@ const Line = styled.div`
   }
 `
 
-export default class extends Component {
+class Controller extends Component {
   data = {
     boardRef: createRef(),
     height: "1000px",
     width: "1000px",
-    elementList: [
-      {
-        type: "shape",
-        height: 100,
-        width: 100,
-        borderRadius: 0,
-        borderColor: "pink",
-        backgroundColor: "blue",
-        borderWidth: 5,
-        left: 0,
-        top: 0,
-        ref: createRef(),
-      },
-      {
-        type: "text",
-        color: "black",
-        fontFamily: "Arial, Helvetica, sans-serif",
-        fontSize: 16,
-        fontWeight: 100,
-        textDecoration: "overline",
-        left: 100,
-        top: 100,
-        text: "text",
-        ref: createRef(),
-      },
-      {
-        type: "image",
-        height: 100,
-        width: 100,
-        borderRadius: 0,
-        borderColor: "pink",
-        backgroundImage:
-          "https://previews.123rf.com/images/objowl/objowl1103/objowl110300009/9040493-computer-generated-iimage-with-an-abstract-circular-geometric-design-in-red-and-green-.jpg",
-        borderWidth: 5,
-        left: 100,
-        top: 0,
-        ref: createRef(),
-      },
-      {
-        type: "video",
-        height: 200,
-        width: 200,
-        borderRadius: 0,
-        borderColor: "pink",
-        src:
-          "https://drive.google.com/file/d/1PH10PRuCtr4d91uhQ4BuDZ4rgC15uWyx/preview",
-        borderWidth: 5,
-        left: 0,
-        top: 0,
-        ref: createRef(),
-      },
-    ],
+    elementList: [],
   }
+  constructor(props) {
+    super(props)
+    this.dataGenerater = dataGenerater.bind(this)
+  }
+  onClick = e => {
+    let data = this.dataGenerater(e.offsetX, e.offsetY, this.props.mode, e.path)
+    if (data === null) return
+
+    this.data.elementList.push(data)
+    this.setState({})
+  }
+
+  componentDidMount() {
+    this.data.boardRef.current.addEventListener("click", this.onClick)
+  }
+
+  componentWillUnmount() {
+    this.data.boardRef.current.removeEventListener("click", this.onClick)
+  }
+
   render() {
     return (
       <Container>
@@ -97,3 +69,20 @@ export default class extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ controller }) => {
+  return {
+    mode: controller.mode,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+
+export default store(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Controller)
+)

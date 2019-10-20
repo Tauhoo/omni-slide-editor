@@ -11,6 +11,7 @@ import { ReactComponent as Text } from "./text.svg"
 import { ReactComponent as Video } from "./video.svg"
 import { ReactComponent as Setting } from "./setting.svg"
 import { ReactComponent as Preview } from "./play.svg"
+import { ReactComponent as Image } from "./image.svg"
 
 const Icons = {
   Move,
@@ -25,6 +26,7 @@ const Icons = {
   Video,
   Setting,
   Preview,
+  Image,
 }
 
 export default Icons
