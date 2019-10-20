@@ -1,4 +1,4 @@
-import React, { Component, createRef } from "react"
+import React, { Component } from "react"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import store from "../redux/store"

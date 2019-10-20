@@ -1,4 +1,4 @@
-import React, { createRef } from "react"
+import { createRef } from "react"
 export default function(data) {
   data.boardRef = createRef()
   for (let element of data.elementList) {

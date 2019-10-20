@@ -1,4 +1,4 @@
-import React, { createRef } from "react"
+import { createRef } from "react"
 export default function(offsetX, offsetY, mode, path) {
   let x = offsetX
   let y = offsetY

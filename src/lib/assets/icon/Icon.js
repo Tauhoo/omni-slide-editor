@@ -1,4 +1,3 @@
-import React from "react"
 import { ReactComponent as Move } from "./move.svg"
 import { ReactComponent as Add } from "./add.svg"
 import { ReactComponent as Circle } from "./circle.svg"
