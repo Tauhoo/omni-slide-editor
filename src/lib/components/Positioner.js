@@ -7,6 +7,7 @@ const Container = styled.div`
   position: absolute;
   left: ${({ left }) => left}px;
   top: ${({ top }) => top}px;
+  cursor: ${({ mode }) => (mode === "Move" ? "move" : "pointer")};
 `
 
 class Positioner extends Component {
@@ -51,6 +52,7 @@ class Positioner extends Component {
         ref={this.ref}
         onMouseUp={() => (this.isHold = false)}
         onBlur={() => (this.isHold = false)}
+        mode={this.props.mode}
       >
         {this.props.children}
       </Container>

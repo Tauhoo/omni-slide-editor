@@ -8,7 +8,7 @@ const Container = styled.button`
   background-color: white;
   border-radius: 5px;
   display: inline-block;
-  fill: ${({ mode, type }) => (mode === type ? "#0984e3" : "#333333")};
+  fill: #333333;
   outline: none;
   transition-duration: 0.3s;
   border-width: 0px;
@@ -29,10 +29,10 @@ const Center = styled.div`
   align-items: center;
 `
 
-export default ({ type, ...props }) => {
-  const Icon = Icons[type]
+export default props => {
+  const Icon = Icons.Submit
   return (
-    <Container {...props} type={type}>
+    <Container {...props}>
       <Center>
         <Icon></Icon>
       </Center>

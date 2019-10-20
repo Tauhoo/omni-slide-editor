@@ -6,6 +6,7 @@ import ToolBar from "../../ToolBar"
 import dataGenerater from "./lib/dataGenerater"
 import { connect } from "react-redux"
 import store from "../../redux/store"
+import dataInitiate from "./lib/dataInitiate"
 
 const Container = styled.div`
   width: 100%;
@@ -29,15 +30,17 @@ const Line = styled.div`
 `
 
 class Controller extends Component {
-  data = {
-    boardRef: createRef(),
-    height: "1000px",
-    width: "1000px",
-    elementList: [],
-  }
   constructor(props) {
     super(props)
     this.dataGenerater = dataGenerater.bind(this)
+    this.data = props.data
+      ? dataInitiate(props.data)
+      : {
+          boardRef: createRef(),
+          height: "1000px",
+          width: "1000px",
+          elementList: [],
+        }
   }
   onClick = e => {
     let data = this.dataGenerater(e.offsetX, e.offsetY, this.props.mode, e.path)
@@ -58,7 +61,7 @@ class Controller extends Component {
   render() {
     return (
       <Container>
-        <ToolBar></ToolBar>
+        <ToolBar data={this.data} onChange={this.props.onChange}></ToolBar>
         <Line>
           <hr />
         </Line>

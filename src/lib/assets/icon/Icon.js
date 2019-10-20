@@ -12,6 +12,7 @@ import { ReactComponent as Video } from "./video.svg"
 import { ReactComponent as Setting } from "./setting.svg"
 import { ReactComponent as Preview } from "./play.svg"
 import { ReactComponent as Image } from "./image.svg"
+import { ReactComponent as Submit } from "./submit.svg"
 
 const Icons = {
   Move,
@@ -27,6 +28,7 @@ const Icons = {
   Setting,
   Preview,
   Image,
+  Submit,
 }
 
 export default Icons

@@ -3,17 +3,22 @@ import { connect } from "react-redux"
 import store from "./redux/store"
 import styled from "styled-components"
 import MenuButton from "./components/interface/menu/Button"
+import Button from "./components/interface/menu/SubmitButton"
 import { changeMode } from "./redux/action"
+import getRealData from "./components/lib/getRealData"
 
 const Container = styled.div`
   width: 100%;
-  padding: 0px 20px;
+  padding: 5px 10px;
   box-sizing: border-box;
 `
 
 class ToolBar extends Component {
   onChangeMode = mode => () => this.props.changeMode(mode)
-
+  onChange = () => {
+    if (!this.props.onChange) return
+    this.props.onChange(getRealData(this.props.data))
+  }
   render() {
     return (
       <Container>
@@ -26,11 +31,6 @@ class ToolBar extends Component {
           mode={this.props.mode}
           onClick={this.onChangeMode("Resize")}
           type='Resize'
-        ></MenuButton>
-        <MenuButton
-          mode={this.props.mode}
-          onClick={this.onChangeMode("Video")}
-          type='Video'
         ></MenuButton>
         <MenuButton
           mode={this.props.mode}
@@ -57,6 +57,17 @@ class ToolBar extends Component {
           onClick={this.onChangeMode("Rectangle")}
           type='Rectangle'
         ></MenuButton>
+        <MenuButton
+          mode={this.props.mode}
+          onClick={this.onChangeMode("Image")}
+          type='Image'
+        ></MenuButton>
+        <MenuButton
+          mode={this.props.mode}
+          onClick={this.onChangeMode("Video")}
+          type='Video'
+        ></MenuButton>
+        <Button onClick={this.onChange}></Button>
       </Container>
     )
   }

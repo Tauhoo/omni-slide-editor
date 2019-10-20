@@ -59,6 +59,7 @@ export default function(offsetX, offsetY, mode, path) {
       top: y,
       text: "text",
       ref: createRef(),
+      refPositioner: createRef(),
     }
   } else if (mode === "Circle") {
     return {
