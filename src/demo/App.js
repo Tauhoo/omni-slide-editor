@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Controller } from "../lib"
+import Controller from "../lib"
 
 class App extends Component {
   render() {
