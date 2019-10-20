@@ -24,7 +24,8 @@ const Iframe = styled.iframe`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: ${({ mode }) => (mode === "Preview" ? "block" : "none")};
+  display: ${({ mode, display }) =>
+    mode === "Preview" || display ? "block" : "none"};
   transition-duration: 0.3s;
 `
 
@@ -35,7 +36,8 @@ const VideoSized = styled(Video)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: ${({ mode }) => (mode === "Preview" ? "none" : "block")};
+  display: ${({ mode, display }) =>
+    mode === "Preview" || display ? "none" : "block"};
   transition-duration: 0.3s;
 `
 
@@ -47,8 +49,15 @@ class VideoComponent extends Component {
   render() {
     return (
       <Container {...this.data} ref={this.data.ref}>
-        <Iframe src={this.data.src} mode={this.props.mode}></Iframe>
-        <VideoSized mode={this.props.mode}></VideoSized>
+        <Iframe
+          src={this.data.src}
+          mode={this.props.mode}
+          display={this.props.display}
+        ></Iframe>
+        <VideoSized
+          mode={this.props.mode}
+          display={this.props.display}
+        ></VideoSized>
       </Container>
     )
   }
@@ -57,6 +66,7 @@ class VideoComponent extends Component {
 const mapStateToProps = ({ controller }) => {
   return {
     mode: controller.mode,
+    display: controller.display,
   }
 }
 

@@ -7,6 +7,7 @@ class App extends Component {
       <div>
         <Controller
           onChange={value => console.log(JSON.stringify(value))}
+          isDisplay
           data={{
             height: "500px",
             width: "1000px",

@@ -37,7 +37,7 @@ class VideoEditor extends Component {
 
   onRightClick = e => {
     e.preventDefault()
-    if (this.props.mode !== "Setting") return
+    if (this.props.mode !== "Setting" || this.props.display) return
     this.setState({ active: true, left: e.offsetX, top: e.offsetY })
   }
 
@@ -89,6 +89,7 @@ class VideoEditor extends Component {
 const mapStateToProps = ({ controller }) => {
   return {
     mode: controller.mode,
+    display: controller.display,
   }
 }
 

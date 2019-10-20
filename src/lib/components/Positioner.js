@@ -7,7 +7,10 @@ const Container = styled.div`
   position: absolute;
   left: ${({ left }) => left}px;
   top: ${({ top }) => top}px;
-  cursor: ${({ mode }) => (mode === "Move" ? "move" : "pointer")};
+  cursor: ${({ mode, display }) => {
+    if (display) return "pointer"
+    return mode === "Move" ? "move" : "pointer"
+  }};
 `
 
 class Positioner extends Component {
@@ -17,7 +20,7 @@ class Positioner extends Component {
   mouseX = 0
   mouseY = 0
   onMouseMove = e => {
-    if (!this.isHold || this.props.mode !== "Move") return
+    if (!this.isHold || this.props.mode !== "Move" || this.props.display) return
     const element = this.ref.current
     this.data.left = element.offsetLeft + e.offsetX - this.mouseX
     this.data.top = element.offsetTop + e.offsetY - this.mouseY
@@ -37,7 +40,7 @@ class Positioner extends Component {
     this.ref.current.removeEventListener("mousedown", this.onMouseDown)
   }
   onMouseDown = e => {
-    if (this.props.mode !== "Move") return
+    if (this.props.mode !== "Move" || this.props.display) return
     this.isHold = true
     this.mouseX = e.offsetX
     this.mouseY = e.offsetY
@@ -53,6 +56,7 @@ class Positioner extends Component {
         onMouseUp={() => (this.isHold = false)}
         onBlur={() => (this.isHold = false)}
         mode={this.props.mode}
+        display={this.props.display}
       >
         {this.props.children}
       </Container>
@@ -63,6 +67,7 @@ class Positioner extends Component {
 const mapStateToProps = ({ controller }) => {
   return {
     mode: controller.mode,
+    display: controller.display,
   }
 }
 

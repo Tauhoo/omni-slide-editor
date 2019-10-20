@@ -4,9 +4,10 @@ import Board from "../Board"
 import renderer from "./lib/renderer"
 import ToolBar from "../../ToolBar"
 import dataGenerater from "./lib/dataGenerater"
+import dataInitiate from "./lib/dataInitiate"
 import { connect } from "react-redux"
 import store from "../../redux/store"
-import dataInitiate from "./lib/dataInitiate"
+import { setDisplay } from "../../redux/action"
 
 const Container = styled.div`
   width: 100%;
@@ -42,6 +43,7 @@ class Controller extends Component {
           elementList: [],
         }
   }
+
   onClick = e => {
     let data = this.dataGenerater(e.offsetX, e.offsetY, this.props.mode, e.path)
     if (data === null) return
@@ -52,6 +54,7 @@ class Controller extends Component {
 
   componentDidMount() {
     this.data.boardRef.current.addEventListener("click", this.onClick)
+    this.props.setDisplay(this.props.isDisplay)
   }
 
   componentWillUnmount() {
@@ -61,10 +64,14 @@ class Controller extends Component {
   render() {
     return (
       <Container>
-        <ToolBar data={this.data} onChange={this.props.onChange}></ToolBar>
-        <Line>
-          <hr />
-        </Line>
+        {this.props.display ? null : (
+          <>
+            <ToolBar data={this.data} onChange={this.props.onChange}></ToolBar>
+            <Line>
+              <hr />
+            </Line>
+          </>
+        )}
         <Board data={this.data}>
           {renderer(this.data.elementList, this.data.boardRef)}
         </Board>
@@ -76,11 +83,14 @@ class Controller extends Component {
 const mapStateToProps = ({ controller }) => {
   return {
     mode: controller.mode,
+    display: controller.display,
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    setDisplay: value => dispatch(setDisplay(value)),
+  }
 }
 
 export default store(
