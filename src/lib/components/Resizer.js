@@ -109,10 +109,12 @@ class Resizer extends Component {
   }
 
   componentDidMount() {
+    if (typeof window === "undefined") return
     window.addEventListener("mousemove", this.onMouseMove)
     window.addEventListener("mouseup", this.onMouseUp)
   }
   componentWillUnmount() {
+    if (typeof window === "undefined") return
     window.removeEventListener("mousemove", this.onMouseMove)
     window.addEventListener("mouseup", this.onMouseUp)
   }

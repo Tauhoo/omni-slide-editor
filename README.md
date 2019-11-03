@@ -17,7 +17,7 @@ You can display editor via Controller variable lik this.
 
 ```
 import React from 'react'
-import { Controller } from 'omni-slide-editor'
+import Controller from 'omni-slide-editor'
 
 export default () => <Controller></Controller>
 ```
@@ -36,7 +36,7 @@ Example
 
 ```
 import React from 'react'
-import { Controller } from 'omni-slide-editor'
+import Controller from 'omni-slide-editor'
 
 export default () => (
 	<Controller display data={/* your data */}>
