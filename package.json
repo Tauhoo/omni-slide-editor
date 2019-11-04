@@ -1,6 +1,6 @@
 {
   "name": "omni-slide-editor",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "description": "Library for creating slide in web.",
@@ -15,6 +15,7 @@
     ],
     "plugins": [
       "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-runtime",
       "babel-plugin-styled-components"
     ]
   },
@@ -24,10 +25,12 @@
   },
   "author": "wachrawit wacharak",
   "dependencies": {
+    "@babel/cli": "^7.6.4",
+    "babel-plugin-named-asset-import": "^0.3.4",
     "react-redux": "^7.1.1",
+    "react-scripts": "3.2.0",
     "redux": "^4.0.4",
-    "styled-components": "^4.4.1",
-    "@babel/cli": "^7.6.4"
+    "styled-components": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -37,8 +40,7 @@
     "babel-plugin-styled-components": "^1.10.6",
     "core-js": "^3.3.6",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react-dom": "^16.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
