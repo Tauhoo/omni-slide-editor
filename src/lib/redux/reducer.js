@@ -4,8 +4,6 @@ const defaultState = {
 }
 
 export default (state = defaultState, action) => {
-  console.log(action)
-
   switch (action.type) {
     case "CHANGE_MODE":
       return { ...state, mode: action.mode }
